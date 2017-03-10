@@ -20,8 +20,7 @@ extern Scheduler scheduler;
 
 extern Texture mainTexture;
 
-#define HERO 2
-extern Texture heroTexture[HERO];
+extern Texture heroTexture;
 
 #define HEROBLOWUP 4
 extern Texture heroBlowUpTexture[HEROBLOWUP];

@@ -11,7 +11,7 @@ Scheduler scheduler;
 
 Texture mainTexture;
 
-Texture heroTexture[HERO];
+Texture heroTexture;
 
 Texture heroBlowUpTexture[HEROBLOWUP];
 

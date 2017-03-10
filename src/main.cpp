@@ -71,7 +71,7 @@ bool loadMedia()
         success = false;
     }
 
-    if(!heroTexture[0].loadFromFile("../image/hero1.png") || !heroTexture[1].loadFromFile("../image/hero2.png")){
+    if(!heroTexture.loadFromFile("../image/hero1.png")){
         printf("Failed to load hero.png! SDL Error: %s\n", SDL_GetError());
         success = false;
     }
@@ -145,8 +145,7 @@ bool loadMedia()
 void close()
 {
     mainTexture.free();
-    for(int i = 0; i < HERO; i++)
-        heroTexture[i].free();
+    heroTexture.free();
     for(int i = 0; i < HEROBLOWUP; i++)
         heroBlowUpTexture[i].free();
     enemy1Texture.free();
@@ -200,6 +199,8 @@ int main(int argc, char* args[])
                     scheduler.handleEvent(e);
                 }
 
+                scheduler.move();
+                
                 SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
                 SDL_RenderClear(renderer);
                 

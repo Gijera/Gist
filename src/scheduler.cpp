@@ -3,18 +3,27 @@
 
 Scheduler::Scheduler()
 {
+    timer = 0;
+    
+    pause = false;
+    
     pauseButton.x = 420;
     pauseButton.y = 0;
     pauseButton.w = 60;
     pauseButton.h = 45;
 
-    timer = 0;
-    
-    pause = false;
+    hero = new Hero();
+}
+
+Scheduler::~Scheduler()
+{
+    delete hero;
 }
 
 void Scheduler::handleEvent(SDL_Event &e)
 {
+    hero->handleEvent(e);
+    
     if(e.type == SDL_MOUSEBUTTONDOWN){
         int x, y;
         SDL_GetMouseState(&x, &y);
@@ -26,8 +35,10 @@ void Scheduler::handleEvent(SDL_Event &e)
 
 void Scheduler::move()
 {
-    if(!pause)
+    if(!pause){
         ++timer;
+        hero->move();
+    }
 }
 
 void Scheduler::render()
@@ -38,4 +49,6 @@ void Scheduler::render()
     }else{
         pauseTexture.render(pauseButton.x, pauseButton.y);
     }
+            
+    hero->render();
 }

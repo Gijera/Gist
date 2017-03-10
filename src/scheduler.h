@@ -2,19 +2,25 @@
 #define _SCHEDULER_H_
 
 #include <SDL2/SDL.h>
+#include "hero.h"
 
 class Scheduler{
 public:
     Scheduler();
 
+    ~Scheduler();
+    
     void handleEvent(SDL_Event &e);
 
     void move();
     
     void render();
-private:
-    SDL_Rect pauseButton;
+
     Uint32 timer;
+private:
     bool pause;
+    SDL_Rect pauseButton;
+
+    Hero *hero;
 };
 #endif
