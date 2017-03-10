@@ -196,12 +196,14 @@ int main(int argc, char* args[])
                     if(e.type == SDL_QUIT){
                         quit = true;
                     }
+
+                    scheduler.handleEvent(e);
                 }
 
                 SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
                 SDL_RenderClear(renderer);
                 
-                mainTexture.render(0, 0);
+                scheduler.render();
                 
                 SDL_RenderPresent(renderer);
             }

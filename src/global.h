@@ -7,6 +7,7 @@
 #include <SDL2/SDL_mixer.h>
 #include <string>
 #include "texture.h"
+#include "scheduler.h"
 
 extern const int SCREEN_WIDTH;
 extern const int SCREEN_HEIGHT;
@@ -14,6 +15,8 @@ extern const int SCREEN_HEIGHT;
 extern SDL_Window *window;
 extern SDL_Renderer *renderer;
 extern TTF_Font *font;
+
+extern Scheduler scheduler;
 
 extern Texture mainTexture;
 
@@ -42,4 +45,6 @@ extern Texture ufo1Texture;
 extern Texture ufo2Texture;
 extern Texture pauseTexture;
 extern Texture resumeTexture;
+
+extern bool isInRect(int x, int y, SDL_Rect rect);
 #endif
