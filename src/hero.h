@@ -20,5 +20,8 @@ private:
     int velX, velY;
     SDL_Rect heroRect;
     Launcher heroBaseLauncher;
+    Launcher heroBombLauncher;
+    Launcher heroLeftLauncher;
+    Launcher heroRightLauncher;
 };
 #endif

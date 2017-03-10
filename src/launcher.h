@@ -7,17 +7,18 @@
 
 class Launcher{
 public:
-    static const int launcherVel = 10;
-
     Launcher();
     
-    void setLauncher(bool type, int x, int y, int vx, int vy);
+    void setLauncher(enum bulletType type, int x, int y, int vx, int vy, int vel = 10);
 
     void move(int x, int y);
 
     void render();
+
+    bool enable;
 private:
-    bool type;
+    int launcherVel;
+    enum bulletType type;
     std::vector<Bullet> bullets;
     int posX, posY;
     int velX, velY;

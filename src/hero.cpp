@@ -13,7 +13,13 @@ Hero::Hero()
     heroRect.w = 106;
     heroRect.h = 126;
 
-    heroBaseLauncher.setLauncher(true, posX + 50, posY, 0, -5);
+    heroBaseLauncher.setLauncher(HERO, posX + 50, posY, 0, -5);
+    heroBombLauncher.setLauncher(BOMB, posX + 20, posY, 0, -5, 200);
+    heroLeftLauncher.setLauncher(HERO, posX + 18, posY + 45, 0, -5);
+    heroRightLauncher.setLauncher(HERO, posX + 81, posY + 45, 0, -5);
+    heroBombLauncher.enable = false;
+    heroRightLauncher.enable = false;
+    heroLeftLauncher.enable = false;
 }
 
 void Hero::handleEvent(SDL_Event &e)
@@ -63,11 +69,18 @@ void Hero::move()
 
     heroRect.x = posX;
     heroRect.y = posY;
+    
     heroBaseLauncher.move(posX + 50, posY);
+    heroBombLauncher.move(posX + 20, posY);
+    heroLeftLauncher.move(posX + 18, posY + 45);
+    heroRightLauncher.move(posX + 81, posY + 45);
 }
 
 void Hero::render()
 {
     heroTexture.render(posX, posY);
     heroBaseLauncher.render();
+    heroBombLauncher.render();
+    heroRightLauncher.render();
+    heroLeftLauncher.render();
 }

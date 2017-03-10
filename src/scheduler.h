@@ -3,6 +3,7 @@
 
 #include <SDL2/SDL.h>
 #include "hero.h"
+#include "ufo.h"
 
 class Scheduler{
 public:
@@ -21,6 +22,7 @@ private:
     bool pause;
     SDL_Rect pauseButton;
 
-    Hero *hero;
+    Hero *hero = NULL;
+    Ufo *ufo = NULL;
 };
 #endif

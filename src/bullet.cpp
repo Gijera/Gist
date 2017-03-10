@@ -1,7 +1,7 @@
 #include "bullet.h"
 #include "global.h"
 
-Bullet::Bullet(bool t, int x, int y, int vx, int vy)
+Bullet::Bullet(enum bulletType t, int x, int y, int vx, int vy)
 {
     dead = false;
     type = t;
@@ -30,10 +30,12 @@ void Bullet::move()
 
 void Bullet::render()
 {
-    if(type)
+    if(type == HERO)
         heroBulletTexture.render(posX, posY);
-    else
+    else if(type == ENEMY)
         enemyBulletTexture.render(posX, posY);
+    else
+        bombBulletTexture.render(posX, posY);
 }
 
 bool Bullet::isDead()

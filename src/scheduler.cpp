@@ -18,6 +18,7 @@ Scheduler::Scheduler()
 Scheduler::~Scheduler()
 {
     delete hero;
+    delete ufo;
 }
 
 void Scheduler::handleEvent(SDL_Event &e)
@@ -37,6 +38,17 @@ void Scheduler::move()
 {
     if(!pause){
         ++timer;
+        if(timer % 1000 == 0){
+            if(ufo != NULL){
+                ufo = new Ufo();
+            }else{
+                delete ufo;
+                ufo = new Ufo();
+            }
+        }
+
+        if(ufo != NULL)
+            ufo->move();
         hero->move();
     }
 }
@@ -51,4 +63,6 @@ void Scheduler::render()
     }
             
     hero->render();
+    if(ufo != NULL)
+        ufo->render();
 }
