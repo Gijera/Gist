@@ -17,6 +17,7 @@ public:
 
     bool enable;
 private:
+    int timer = 0;
     int launcherVel;
     enum bulletType type;
     std::vector<Bullet> bullets;

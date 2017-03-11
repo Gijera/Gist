@@ -3,6 +3,10 @@
 
 #include <SDL2/SDL.h>
 #include "launcher.h"
+#include "enum.h"
+
+#define HEROWIDTH 106
+#define HEROHEIGHT 126
 
 class Hero{
 public:
@@ -15,10 +19,14 @@ public:
     void move();
 
     void render();
+
+    void collision(enum collisionType type);
+
+    bool dead;
+    SDL_Rect heroRect;
 private:
     int posX, posY;
     int velX, velY;
-    SDL_Rect heroRect;
     Launcher heroBaseLauncher;
     Launcher heroBombLauncher;
     Launcher heroLeftLauncher;

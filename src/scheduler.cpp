@@ -1,4 +1,5 @@
 #include "scheduler.h"
+#include "collision.h"
 #include "global.h"
 
 Scheduler::Scheduler()
@@ -47,9 +48,29 @@ void Scheduler::move()
             }
         }
 
-        if(ufo != NULL)
+        if(ufo != NULL){
             ufo->move();
-        hero->move();
+            if(ufo->isDead()){
+                delete ufo;
+                ufo = NULL;
+            }
+        }
+
+        if(hero != NULL){
+            hero->move();
+            if(hero->dead){
+                delete hero;
+                hero = NULL;
+            }
+        }
+
+        if(ufo != NULL && hero != NULL && OTORectCollision(hero->heroRect, ufo->ufoRect)){
+                    ufo->collision();
+                    if(ufo->type == true)
+                        hero->collision(_UFO1);
+                    else
+                        hero->collision(_UFO2);
+        }
     }
 }
 
@@ -61,8 +82,9 @@ void Scheduler::render()
     }else{
         pauseTexture.render(pauseButton.x, pauseButton.y);
     }
-            
-    hero->render();
+
+    if(hero != NULL)
+        hero->render();
     if(ufo != NULL)
         ufo->render();
 }

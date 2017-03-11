@@ -2,8 +2,8 @@
 #define _BULLET_H_
 
 #include <SDL2/SDL.h>
+#include "enum.h"
 
-enum bulletType{HERO, ENEMY, BOMB};
 
 class Bullet{
 public:

@@ -2,6 +2,7 @@
 #define _SCHEDULER_H_
 
 #include <SDL2/SDL.h>
+#include "enum.h"
 #include "hero.h"
 #include "ufo.h"
 

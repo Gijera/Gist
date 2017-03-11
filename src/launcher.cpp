@@ -18,7 +18,6 @@ void Launcher::setLauncher(enum bulletType t, int x, int y, int vx, int vy, int 
 
 void Launcher::move(int x, int y)
 {
-        static int timer = 0;
         posX = x;
         posY = y;
         if(enable){

@@ -1,6 +1,11 @@
 #ifndef _UFO_H_
 #define _UFO_H_
 
+#include <SDL2/SDL.h>
+
+#define UFOWIDTH 58
+#define UFOHEIGHT 88
+
 class Ufo{
 public:
     Ufo();
@@ -10,10 +15,14 @@ public:
     void render();
 
     bool isDead();
+
+    void collision();
+
+    int type;
+    SDL_Rect ufoRect;
 private:
     int posX, posY;
     int velX, velY;
-    int type;
     bool dead;
 };
 #endif

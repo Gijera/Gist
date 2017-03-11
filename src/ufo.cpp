@@ -3,7 +3,7 @@
 
 Ufo::Ufo()
 {
-    posX = rand() % (SCREEN_WIDTH - 58);
+    posX = rand() % (SCREEN_WIDTH - UFOWIDTH);
     posY = 0;
     velX = 0;
     velY = 5;
@@ -11,6 +11,11 @@ Ufo::Ufo()
     type = (rand() % 2 == 0)? true : false;
     
     dead = false;
+
+    ufoRect.x = posX;
+    ufoRect.y = posY;
+    ufoRect.w = UFOWIDTH;
+    ufoRect.h = UFOHEIGHT;
 }
 
 void Ufo::move()
@@ -18,10 +23,13 @@ void Ufo::move()
     posX += velX;
     posY += velY;
 
-    if(posX < 0 || posX + 58 > SCREEN_WIDTH)
+    if(posX < 0 || posX + UFOWIDTH > SCREEN_WIDTH)
         posX -= velX;
-    if(posY < 0 || posY + 88 > SCREEN_HEIGHT)
+    if(posY < 0 || posY + UFOHEIGHT > SCREEN_HEIGHT)
         dead = true;
+
+    ufoRect.x = posX;
+    ufoRect.y = posY;
 }
 
 void Ufo::render()
@@ -35,4 +43,9 @@ void Ufo::render()
 bool Ufo::isDead()
 {
     return dead;
+}
+
+void Ufo::collision()
+{
+    dead = true;
 }
