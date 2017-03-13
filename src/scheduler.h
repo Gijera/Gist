@@ -2,8 +2,10 @@
 #define _SCHEDULER_H_
 
 #include <SDL2/SDL.h>
+#include <vector>
 #include "enum.h"
 #include "hero.h"
+#include "enemy.h"
 #include "ufo.h"
 
 class Scheduler{
@@ -23,6 +25,7 @@ private:
     bool pause;
     SDL_Rect pauseButton;
 
+    std::vector<Enemy *>enemys;
     Hero *hero = NULL;
     Ufo *ufo = NULL;
 };

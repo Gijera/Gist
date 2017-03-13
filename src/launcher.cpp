@@ -22,7 +22,7 @@ void Launcher::move(int x, int y)
         posY = y;
         if(enable){
             if(++timer == launcherVel){
-                bullets.push_back(Bullet(type, posX, posY, velX, velY));
+                bullets.push_back(Bullet(type, posX, posY, velX, velY * 2));
                 timer = 0;
             }
         }
@@ -42,3 +42,4 @@ void Launcher::render()
     for(auto it =  bullets.begin(); it != bullets.end(); ++it)
         it->render();
 }
+

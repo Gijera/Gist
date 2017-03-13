@@ -13,14 +13,11 @@ Texture mainTexture;
 
 Texture heroTexture;
 
-Texture heroBlowUpTexture[HEROBLOWUP];
-
 Texture enemy1Texture;
-Texture enemy1DownTexture[ENEMY1DOWN];
+
 Texture enemy2Texture;
-Texture enemy2DownTexture[ENEMY2DOWN];
+
 Texture enemy3Texture;
-Texture enemy3DownTexture[ENEMY3DOWN];
 
 Texture heroBulletTexture;
 Texture enemyBulletTexture;

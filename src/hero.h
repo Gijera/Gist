@@ -5,8 +5,8 @@
 #include "launcher.h"
 #include "enum.h"
 
-#define HEROWIDTH 106
-#define HEROHEIGHT 126
+#define HEROWIDTH 51
+#define HEROHEIGHT 63
 
 class Hero{
 public:

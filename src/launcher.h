@@ -8,7 +8,7 @@
 class Launcher{
 public:
     Launcher();
-    
+
     void setLauncher(enum bulletType type, int x, int y, int vx, int vy, int vel = 10);
 
     void move(int x, int y);

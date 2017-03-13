@@ -12,8 +12,20 @@ Bullet::Bullet(enum bulletType t, int x, int y, int vx, int vy)
     
     bulletRect.x = posX;
     bulletRect.y = posY;
-    bulletRect.w = 5;
-    bulletRect.h = 11;
+
+    switch(type){
+    case HERO:
+        bulletRect.w = 5;
+        bulletRect.h = 11;
+        break;
+    case ENEMY:
+        bulletRect.w = 5;
+        bulletRect.h = 11;
+        break;
+    case BOMB:
+        bulletRect.w = 10;
+        bulletRect.h = 25;
+    }
 }
 
 void Bullet::move()

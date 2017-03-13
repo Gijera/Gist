@@ -3,8 +3,8 @@
 
 #include <SDL2/SDL.h>
 
-#define UFOWIDTH 58
-#define UFOHEIGHT 88
+#define UFOWIDTH 30
+#define UFOHEIGHT 45
 
 class Ufo{
 public:

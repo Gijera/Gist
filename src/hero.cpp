@@ -15,10 +15,10 @@ Hero::Hero()
     heroRect.w = HEROWIDTH;
     heroRect.h = HEROHEIGHT;
 
-    heroBaseLauncher.setLauncher(HERO, posX + 50, posY, 0, -5);
-    heroBombLauncher.setLauncher(BOMB, posX + 20, posY, 0, -5, 100);
-    heroRightLauncher.setLauncher(HERO, posX + 81, posY + 45, 0, -5);
-    heroLeftLauncher.setLauncher(HERO, posX + 18, posY + 45, 0, -5);
+    heroBaseLauncher.setLauncher(HERO, posX + 25, posY, 0, -5);
+    heroBombLauncher.setLauncher(BOMB, posX + 21, posY, 0, -5, 20);
+    heroRightLauncher.setLauncher(HERO, posX + 40, posY + 22, 0, -5);
+    heroLeftLauncher.setLauncher(HERO, posX + 7, posY + 22, 0, -5);
     heroBaseLauncher.enable = true;
     heroBombLauncher.enable = false;
     heroLeftLauncher.enable = false;
@@ -73,10 +73,10 @@ void Hero::move()
     heroRect.x = posX;
     heroRect.y = posY;
     
-    heroBaseLauncher.move(posX + 50, posY);
-    heroBombLauncher.move(posX + 20, posY);
-    heroRightLauncher.move(posX + 81, posY + 45);
-    heroLeftLauncher.move(posX + 18, posY + 45);
+    heroBaseLauncher.move(posX + 25, posY);
+    heroBombLauncher.move(posX + 21, posY);
+    heroRightLauncher.move(posX + 40, posY + 22);
+    heroLeftLauncher.move(posX + 7, posY + 22);
 }
 
 void Hero::render()

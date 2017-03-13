@@ -76,18 +76,8 @@ bool loadMedia()
         success = false;
     }
 
-    if(!heroBlowUpTexture[0].loadFromFile("../image/hero_blowup_n1.png") || !heroBlowUpTexture[1].loadFromFile("../image/hero_blowup_n2.png") || !heroBlowUpTexture[2].loadFromFile("../image/hero_blowup_n3.png") || !heroBlowUpTexture[3].loadFromFile("../image/hero_blowup_n4.png")){
-        printf("Failed to laod hero_blowup.png! SDL Error: %s\n", SDL_GetError());
-        success = false;
-    }
-
     if(!enemy1Texture.loadFromFile("../image/enemy1.png")){
         printf("Failed to load enemy1.png! SDL Error: %s\n", SDL_GetError());
-        success = false;
-    }
-    
-    if(!enemy1DownTexture[0].loadFromFile("../image/enemy1_down1.png") || !enemy1DownTexture[1].loadFromFile("../image/enemy1_down2.png") || !enemy1DownTexture[2].loadFromFile("../image/enemy1_down3.png") || !enemy1DownTexture[3].loadFromFile("../image/enemy1_down4.png")){
-        printf("Failed to load enemy1_down.png! SDL Error: %s\n", SDL_GetError());
         success = false;
     }
 
@@ -96,21 +86,11 @@ bool loadMedia()
         success = false;
     }
     
-    if(!enemy2DownTexture[0].loadFromFile("../image/enemy2_down1.png") || !enemy2DownTexture[1].loadFromFile("../image/enemy2_down2.png") || !enemy2DownTexture[2].loadFromFile("../image/enemy2_down3.png") || !enemy2DownTexture[3].loadFromFile("../image/enemy2_down4.png")){
-        printf("Failed to load enemy2_down.png! SDL Error: %s\n", SDL_GetError());
-        success = false;
-    }
-
     if(!enemy3Texture.loadFromFile("../image/enemy3.png")){
         printf("Failed to load enemy3.png! SDL Error: %s\n", SDL_GetError());
         success = false;
     }
     
-    if(!enemy3DownTexture[0].loadFromFile("../image/enemy3_down1.png") || !enemy3DownTexture[1].loadFromFile("../image/enemy3_down2.png") || !enemy3DownTexture[2].loadFromFile("../image/enemy3_down3.png") || !enemy3DownTexture[3].loadFromFile("../image/enemy3_down4.png") || !enemy3DownTexture[4].loadFromFile("../image/enemy3_down5.png") || !enemy3DownTexture[5].loadFromFile("../image/enemy3_down6.png")){
-        printf("Failed to load enemy3_down.png! SDL Error: %s\n", SDL_GetError());
-        success = false;
-    }
-
     if(!heroBulletTexture.loadFromFile("../image/bullet2.png")){
         printf("Failed to load bullet2.png! SDL Error: %s\n", SDL_GetError());
         success = false;   
@@ -146,17 +126,13 @@ void close()
 {
     mainTexture.free();
     heroTexture.free();
-    for(int i = 0; i < HEROBLOWUP; i++)
-        heroBlowUpTexture[i].free();
+
     enemy1Texture.free();
-    for(int i = 0; i < ENEMY1DOWN; i++)
-        enemy1DownTexture[i].free();
+
     enemy2Texture.free();
-    for(int i = 0; i < ENEMY2DOWN; i++)
-        enemy2DownTexture[i].free();
+
     enemy3Texture.free();
-    for(int i = 0; i < ENEMY3DOWN; i++)
-        enemy3DownTexture[i].free();
+
     heroBulletTexture.free();
     enemyBulletTexture.free();
     bombBulletTexture.free();

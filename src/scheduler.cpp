@@ -20,6 +20,8 @@ Scheduler::~Scheduler()
 {
     delete hero;
     delete ufo;
+    std::vector<Enemy *>tmp;
+    tmp.swap(enemys);
 }
 
 void Scheduler::handleEvent(SDL_Event &e)
@@ -48,6 +50,20 @@ void Scheduler::move()
             }
         }
 
+        if(timer % 300 == 0){
+            enemys.push_back(new Enemy(ENEMY_2, rand()%SCREEN_WIDTH, 0, 0, 1));
+        }
+
+        for(auto it = enemys.begin(); it != enemys.end();){
+            if((*it)->dead){
+                delete (*it);
+                enemys.erase(it);
+                continue;
+            }
+            (*it)->move();
+            ++it;
+        }
+        
         if(ufo != NULL){
             ufo->move();
             if(ufo->isDead()){
@@ -87,4 +103,8 @@ void Scheduler::render()
         hero->render();
     if(ufo != NULL)
         ufo->render();
+
+    for(auto it = enemys.begin(); it != enemys.end(); ++it){
+        (*it)->render();
+    }
 }

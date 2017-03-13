@@ -22,20 +22,11 @@ extern Texture mainTexture;
 
 extern Texture heroTexture;
 
-#define HEROBLOWUP 4
-extern Texture heroBlowUpTexture[HEROBLOWUP];
-
-#define ENEMY1DOWN 4
 extern Texture enemy1Texture;
-extern Texture enemy1DownTexture[ENEMY1DOWN];
 
-#define ENEMY2DOWN 4
 extern Texture enemy2Texture;
-extern Texture enemy2DownTexture[ENEMY2DOWN];
 
-#define ENEMY3DOWN 6
 extern Texture enemy3Texture;
-extern Texture enemy3DownTexture[ENEMY3DOWN];
 
 extern Texture heroBulletTexture;
 extern Texture enemyBulletTexture;
