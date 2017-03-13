@@ -14,11 +14,14 @@ public:
     void render();
 
     bool isDead();
+
+    void collision();
+    
+    SDL_Rect bulletRect;
 private:
     bool dead;
     enum bulletType type;
     int posX, posY;
     int velX, velY;
-    SDL_Rect bulletRect;
 };
 #endif

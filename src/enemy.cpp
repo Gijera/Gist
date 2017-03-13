@@ -42,10 +42,11 @@ Enemy::Enemy(enum enemyType t, int x, int y, int vx, int vy)
         break;
     case ENEMY_3:
         life = 100;
+        velX = rand() % 9 - 5;
         enemyRect.w = ENEMY_3_WIDTH;
         enemyRect.h = ENEMY_3_HEIGHT;
         enemyLauncher.enable = true;
-        enemyLauncher.setLauncher(ENEMY, posX + 35, posY + enemyRect.h, velX, velY, 20);
+        enemyLauncher.setLauncher(ENEMY, posX + 35, posY + enemyRect.h, rand()%9-5, velY, 20);
         break;
     }
 }
@@ -77,10 +78,11 @@ void Enemy::setEnemy(enum enemyType t, int x, int y, int vx, int vy)
         break;
     case ENEMY_3:
         life = 100;
+        velX = rand() % 9 - 5;
         enemyRect.w = ENEMY_3_WIDTH;
         enemyRect.h = ENEMY_3_HEIGHT;
         enemyLauncher.enable = true;
-        enemyLauncher.setLauncher(ENEMY, posX + 35, posY + enemyRect.h, velX, velY, 20);
+        enemyLauncher.setLauncher(ENEMY, posX + 35, posY + enemyRect.h, rand()%9-5, velY, 20);
         break;
     }
 }
@@ -90,10 +92,19 @@ void Enemy::move()
     posX += velX;
     posY += velY;
 
-    if(posX < 0 || posX > SCREEN_WIDTH)
+    if(posX < 0 || posX + enemyRect.w > SCREEN_WIDTH){
         posX -= velX;
-    if(posY < 0 || posY > SCREEN_HEIGHT)
-        dead = true;
+        if(type == ENEMY_3)
+            velX = -velX;
+    }
+
+    if(posY < 0 || posY + enemyRect.h > SCREEN_HEIGHT){
+        if(type == ENEMY_3){
+            velY = -velY;
+        }else{
+            dead = true;
+        }
+    }
 
     enemyRect.x = posX;
     enemyRect.y = posY;
@@ -103,6 +114,7 @@ void Enemy::move()
         enemyLauncher.move(posX + 16, posY + enemyRect.h);
         break;
     case ENEMY_3:
+        enemyLauncher.setLauncher(ENEMY, posX + 35, posY + enemyRect.h, rand()%9-5, velY, 20);
         enemyLauncher.move(posX + 35, posY + enemyRect.h);
         break;
     }
@@ -123,4 +135,24 @@ void Enemy::render()
     }
 
     enemyLauncher.render();
+}
+
+void Enemy::collision(enum collisionType type)
+{
+    switch(type){
+    case _HERO:
+        dead = true;
+        break;
+    case _HEROBULLET:
+        life--;
+        break;
+    case _BOMBBULLET:
+        life -= 10;
+        break;
+    default:
+        break;
+    }
+    
+    if(life <= 0)
+        dead = true;
 }

@@ -8,6 +8,8 @@
 #include "enemy.h"
 #include "ufo.h"
 
+static SDL_Color textColor = {0x00, 0x00, 0x00};
+
 class Scheduler{
 public:
     Scheduler();
@@ -20,11 +22,22 @@ public:
     
     void render();
 
+    void heroEnemyCollision();
+
+    void heroUfoCollision();
+
+    void heroBulletCollision();
+
+    void enemyBulletCollision();
+    
     Uint32 timer;
+
+    int score;
 private:
+    bool start;
     bool pause;
     SDL_Rect pauseButton;
-
+    SDL_Rect restartButton;
     std::vector<Enemy *>enemys;
     Hero *hero = NULL;
     Ufo *ufo = NULL;

@@ -24,7 +24,6 @@ public:
 
     bool dead;
     SDL_Rect heroRect;
-private:
     int posX, posY;
     int velX, velY;
     Launcher heroBaseLauncher;

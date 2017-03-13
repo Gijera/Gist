@@ -6,7 +6,7 @@ Hero::Hero()
     dead = false;
     
     posX = (SCREEN_WIDTH - HEROWIDTH) / 2;
-    posY = SCREEN_HEIGHT - HEROHEIGHT;
+    posY = (SCREEN_HEIGHT - HEROHEIGHT) / 2;
     velX = 0;
     velY = 0;
 
@@ -63,13 +63,15 @@ void Hero::handleEvent(SDL_Event &e)
 void Hero::move()
 {
     posX += velX;
-    if(posX < 0 || posX + HEROWIDTH > SCREEN_WIDTH)
+    if(posX < 0 || posX + HEROWIDTH > SCREEN_WIDTH){
         posX -= velX;
-    
-    posY += velY;
-    if(posY < 0 || posY + HEROHEIGHT > SCREEN_HEIGHT)
-        posY -= velY;
+    }
 
+    posY += velY;
+    if(posY < 0 || posY + HEROHEIGHT > SCREEN_HEIGHT){
+        posY -= velY;
+    }
+    
     heroRect.x = posX;
     heroRect.y = posY;
     
@@ -102,6 +104,10 @@ void Hero::collision(enum collisionType type)
         heroRightLauncher.enable = false;
         heroLeftLauncher.enable = false;
         heroBombLauncher.enable = true;
+        break;
+    case _ENEMY:
+    case _ENEMYBULLET:
+        dead = true;
         break;
     default:
         break;

@@ -54,3 +54,8 @@ bool Bullet::isDead()
 {
     return dead;
 }
+
+void Bullet::collision()
+{
+    dead = true;
+}

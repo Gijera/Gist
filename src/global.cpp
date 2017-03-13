@@ -26,6 +26,8 @@ Texture ufo1Texture;
 Texture ufo2Texture;
 Texture pauseTexture;
 Texture resumeTexture;
+Texture scoreTexture;
+Texture restartTexture;
 
 bool isInRect(int x, int y, SDL_Rect rect)
 {

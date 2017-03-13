@@ -35,6 +35,7 @@ extern Texture ufo1Texture;
 extern Texture ufo2Texture;
 extern Texture pauseTexture;
 extern Texture resumeTexture;
-
+extern Texture scoreTexture;
+extern Texture restartTexture;
 extern bool isInRect(int x, int y, SDL_Rect rect);
 #endif

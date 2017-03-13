@@ -16,7 +16,8 @@ public:
     void move();
 
     void render();
-    
+
+    void collision(enum collisionType type);
     enum enemyType type;
     bool dead;
     int life;

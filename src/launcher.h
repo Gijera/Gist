@@ -16,11 +16,12 @@ public:
     void render();
 
     bool enable;
+
+    std::vector<Bullet> bullets;
 private:
     int timer = 0;
     int launcherVel;
     enum bulletType type;
-    std::vector<Bullet> bullets;
     int posX, posY;
     int velX, velY;
 };

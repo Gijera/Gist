@@ -59,7 +59,7 @@ bool loadMedia()
 {
     bool success = true;
 
-    font = TTF_OpenFont("../ttf/game.ttf", 30);
+    font = TTF_OpenFont("../ttf/game.ttf", 50);
     if( font == NULL )
     {
         printf( "Failed to load lazy font! SDL_ttf Error: %s\n", TTF_GetError() );
@@ -119,6 +119,10 @@ bool loadMedia()
         printf("Failed to load resume.png! SDL Error: %s\n", SDL_GetError());
         success = false;   
     }
+    if(!restartTexture.loadFromFile("../image/restart.png")){
+        printf("Failed to load restart.png! SDL Error: %s\n", SDL_GetError());
+        success = false;   
+    }
     return success;
 }
 
@@ -140,6 +144,8 @@ void close()
     ufo2Texture.free();
     pauseTexture.free();
     resumeTexture.free();
+    scoreTexture.free();
+    restartTexture.free();
 
     TTF_CloseFont(font);
     font = NULL;
