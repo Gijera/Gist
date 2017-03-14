@@ -12,35 +12,22 @@
 
 ## SpaceWar 文件说明
 |-src   源代码文件夹
-
+```
 | |-main.cpp    主函数
-
 | |-enum.h    存放全局枚举变量
-
 | |-global.h global.cpp   存放全局变量
-
 | |-texture.h texture.cpp   纹理渲染
-
 | |-scheduler.h scheduler.cpp   调度器,控制游戏的进度
-
 | |-hero.h hero.cpp   玩家控制的飞船
-
 | |-enemy.h enemy.cpp   敌机
-
 | |-launcher.h launcher.cpp   子弹发射器
-
 | |-bullet.h bullet.cpp   子弹
-
 | |-ufo.h ufo.cpp   道具
-
 | |-collision.h collision.cpp   碰撞检测
-
 |-image   图片素材文件夹
-
 |-music   音乐素材文件夹
-
 |-ttf   字体素材文件夹
-
+```
 
 ## SpaceWar 游戏玩法
 * 上下左右控制飞船的移动,消灭敌机.其中导弹的威力是普通炮的十倍.
