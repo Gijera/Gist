@@ -4,15 +4,15 @@
 <div> <img src="image/screen_1.png" /></div>
 
 道具界面
-<div> <img src="image/screen_2.png" /></div>
-<div> <img src="image/screen_3.png" /></div>
+<div> <img src="image/screen_2.png" />
+<img src="image/screen_3.png" /></div>
 
 选项界面
 <div> <img src="image/screen_4.png" /></div>
 
 ## SpaceWar 文件说明
-|-src   源代码文件夹
 ```
+|-src   源代码文件夹
 | |-main.cpp    主函数
 | |-enum.h    存放全局枚举变量
 | |-global.h global.cpp   存放全局变量
