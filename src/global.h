@@ -16,7 +16,13 @@ extern SDL_Window *window;
 extern SDL_Renderer *renderer;
 extern TTF_Font *font;
 
-extern Scheduler scheduler;
+extern Mix_Music *music;
+extern Mix_Chunk *heroBullet;
+extern Mix_Chunk *bombBullet;
+extern Mix_Chunk *enemyDead;
+extern Mix_Chunk *getUfo;
+
+extern Scheduler *scheduler;
 
 extern Texture mainTexture;
 
@@ -37,5 +43,6 @@ extern Texture pauseTexture;
 extern Texture resumeTexture;
 extern Texture scoreTexture;
 extern Texture restartTexture;
+extern Texture quitTexture;
 extern bool isInRect(int x, int y, SDL_Rect rect);
 #endif

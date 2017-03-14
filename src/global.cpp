@@ -7,7 +7,13 @@ SDL_Window *window = NULL;
 SDL_Renderer *renderer = NULL;
 TTF_Font *font = NULL;
 
-Scheduler scheduler;
+Mix_Music *music = NULL;
+Mix_Chunk *heroBullet = NULL;
+Mix_Chunk *bombBullet = NULL;
+Mix_Chunk *enemyDead = NULL;
+Mix_Chunk *getUfo = NULL;
+
+Scheduler *scheduler = new Scheduler();
 
 Texture mainTexture;
 
@@ -28,6 +34,7 @@ Texture pauseTexture;
 Texture resumeTexture;
 Texture scoreTexture;
 Texture restartTexture;
+Texture quitTexture;
 
 bool isInRect(int x, int y, SDL_Rect rect)
 {

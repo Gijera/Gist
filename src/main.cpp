@@ -66,6 +66,35 @@ bool loadMedia()
         success = false;
     }
 
+    music = Mix_LoadMUS("../music/background.wav");
+    if( music == NULL){
+        printf( "Failed to load beat music! SDL_mixer Error: %s\n", Mix_GetError() );
+        success = false;
+    }
+
+    heroBullet = Mix_LoadWAV("../music/herobullet.wav");
+    if(heroBullet == NULL){
+        printf( "Failed to load beat herobullet.wav! SDL_mixer Error: %s\n", Mix_GetError() );
+        success = false;
+    }
+
+    bombBullet = Mix_LoadWAV("../music/bombbullet.wav");
+    if(bombBullet == NULL){
+        printf( "Failed to load beat bombbullet.wav! SDL_mixer Error: %s\n", Mix_GetError() );
+        success = false;
+    }
+
+    enemyDead = Mix_LoadWAV("../music/enemydead.wav");
+    if(enemyDead == NULL){
+        printf( "Failed to load beat enemydead.wav! SDL_mixer Error: %s\n", Mix_GetError() );
+        success = false;
+    }
+
+    getUfo = Mix_LoadWAV("../music/getufo.wav");
+    if(getUfo == NULL){
+        printf( "Failed to load beat getufo.wav! SDL_mixer Error: %s\n", Mix_GetError() );
+        success = false;
+    }
     if(!mainTexture.loadFromFile("../image/background.png")){
         printf("Failed to load background.png! SDL Error: %s\n", SDL_GetError());
         success = false;
@@ -123,6 +152,11 @@ bool loadMedia()
         printf("Failed to load restart.png! SDL Error: %s\n", SDL_GetError());
         success = false;   
     }
+    if(!quitTexture.loadFromFile("../image/quit.png")){
+        printf("Failed to load quit.png! SDL Error: %s\n", SDL_GetError());
+        success = false;
+    }
+    
     return success;
 }
 
@@ -146,7 +180,18 @@ void close()
     resumeTexture.free();
     scoreTexture.free();
     restartTexture.free();
+    quitTexture.free();
 
+    Mix_FreeChunk(heroBullet);
+    Mix_FreeChunk(bombBullet);
+    Mix_FreeChunk(enemyDead);
+    enemyDead = NULL;
+    heroBullet = NULL;
+    bombBullet = NULL;
+    
+    Mix_FreeMusic(music);
+    music = NULL;
+    
     TTF_CloseFont(font);
     font = NULL;
 
@@ -172,21 +217,29 @@ int main(int argc, char* args[])
             bool quit = false;
             SDL_Event e;
 
+            Mix_PlayMusic(music, -1);
+            
             while(!quit){
                 while(SDL_PollEvent(&e) != 0){
                     if(e.type == SDL_QUIT){
                         quit = true;
                     }
 
-                    scheduler.handleEvent(e);
+                    if(scheduler->quit)
+                        quit = true;
+                    
+                    scheduler->handleEvent(e);
                 }
-
-                scheduler.move();
+                if(scheduler->dead == true){
+                    delete scheduler;
+                    scheduler = new Scheduler();
+                }
+                scheduler->move();
                 
                 SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
                 SDL_RenderClear(renderer);
                 
-                scheduler.render();
+                scheduler->render();
                 
                 SDL_RenderPresent(renderer);
             }

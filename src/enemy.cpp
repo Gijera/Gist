@@ -153,6 +153,8 @@ void Enemy::collision(enum collisionType type)
         break;
     }
     
-    if(life <= 0)
+    if(life <= 0){
+        Mix_PlayChannel(-1, enemyDead, 0);
         dead = true;
+    }
 }

@@ -33,11 +33,16 @@ public:
     Uint32 timer;
 
     int score;
+
+    bool quit;
+    
+    bool dead;
 private:
     bool start;
     bool pause;
     SDL_Rect pauseButton;
     SDL_Rect restartButton;
+    SDL_Rect quitButton;
     std::vector<Enemy *>enemys;
     Hero *hero = NULL;
     Ufo *ufo = NULL;

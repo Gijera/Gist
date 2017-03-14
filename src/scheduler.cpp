@@ -8,6 +8,8 @@ Scheduler::Scheduler()
 
     score = 0;
 
+    quit = false;
+    dead = false;
     start = false;
     pause = false;
     
@@ -20,6 +22,11 @@ Scheduler::Scheduler()
     restartButton.y = 400;
     restartButton.w = 300;
     restartButton.h = 41;
+
+    quitButton.x = 90;
+    quitButton.y = 500;
+    quitButton.w = 300;
+    quitButton.h = 41;
     hero = new Hero();
 }
 
@@ -44,7 +51,11 @@ void Scheduler::handleEvent(SDL_Event &e)
         }
 
         if(start && isInRect(x, y, restartButton)){
-            ;
+            dead = true;
+        }
+
+        if(start && isInRect(x, y, quitButton)){
+            quit = true;
         }
     }
 }
@@ -143,6 +154,7 @@ void Scheduler::render()
     
     if(start){
         restartTexture.render(restartButton.x, restartButton.y);
+        quitTexture.render(quitButton.x, quitButton.y);
     }
 }
 
@@ -154,6 +166,7 @@ void Scheduler::heroUfoCollision()
             hero->collision(_UFO1);
         else
             hero->collision(_UFO2);
+        Mix_PlayChannel(-1, getUfo, 0);
     }
 }
 
@@ -194,6 +207,7 @@ void Scheduler::enemyBulletCollision()
                         tmp->collision();
                         (*it)->collision(_HEROBULLET);
                         score++;
+                        Mix_PlayChannel(-1, heroBullet, 0);
                     }
                 }
             }
@@ -206,6 +220,7 @@ void Scheduler::enemyBulletCollision()
                         tmp->collision();
                         (*it)->collision(_BOMBBULLET);
                         score += 10;
+                        Mix_PlayChannel(-1, bombBullet, 0);
                     }
                 }
             }
@@ -218,6 +233,7 @@ void Scheduler::enemyBulletCollision()
                         tmp->collision();
                         (*it)->collision(_HEROBULLET);
                         score++;
+                        Mix_PlayChannel(-1, heroBullet, 0);
                     }
                 }
             }
@@ -230,6 +246,7 @@ void Scheduler::enemyBulletCollision()
                         tmp->collision();
                         (*it)->collision(_HEROBULLET);
                         score++;
+                        Mix_PlayChannel(-1, heroBullet, 0);
                     }
                 }
             }
