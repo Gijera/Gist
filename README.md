@@ -12,20 +12,35 @@
 
 ## SpaceWar 文件说明
 |-src   源代码文件夹
+
 | |-main.cpp    主函数
+
 | |-enum.h    存放全局枚举变量
+
 | |-global.h global.cpp   存放全局变量
+
 | |-texture.h texture.cpp   纹理渲染
+
 | |-scheduler.h scheduler.cpp   调度器,控制游戏的进度
+
 | |-hero.h hero.cpp   玩家控制的飞船
+
 | |-enemy.h enemy.cpp   敌机
+
 | |-launcher.h launcher.cpp   子弹发射器
+
 | |-bullet.h bullet.cpp   子弹
+
 | |-ufo.h ufo.cpp   道具
+
 | |-collision.h collision.cpp   碰撞检测
+
 |-image   图片素材文件夹
+
 |-music   音乐素材文件夹
+
 |-ttf   字体素材文件夹
+
 
 ## SpaceWar 游戏玩法
 * 上下左右控制飞船的移动,消灭敌机.其中导弹的威力是普通炮的十倍.
@@ -35,7 +50,7 @@
 
 ## SpaceWar 说明
 这个游戏是参照微信的经典飞机大战,不过音效由于SDL的不支持,所以我自己另找了一些音效.里面的敌机有三种,随机出现,并且最难的出现的概率最低.
-这个游戏是基于SDL2使用C++完成的,由于C++还在学习中,所以代码有些混乱请多多指教.
+这个游戏是基于SDL2使用C++完成.
 
 ## 编译游戏
 ```
