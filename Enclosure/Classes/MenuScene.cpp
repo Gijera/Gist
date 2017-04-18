@@ -1,5 +1,5 @@
 #include "MenuScene.h"
-#include "LoadScene.h"
+#include "LevelScene.h"
 #include "ui/CocosGUI.h"
 USING_NS_CC;
 using namespace ui;
@@ -35,7 +35,7 @@ bool MainMenu::init()
 	startButton->setPosition(Vec2(visibleSize.width * 0.3, visibleSize.height*0.7));
 	startButton->addTouchEventListener([](Ref *pSender, Widget::TouchEventType type){
 		if (type == Widget::TouchEventType::ENDED){
-			auto transition = TransitionSlideInL::create(2.0f, SourceLoad::createScene());
+			auto transition = TransitionSlideInL::create(2.0f, LevelScene::createScene());
 			Director::getInstance()->replaceScene(transition);
 		}
 	});

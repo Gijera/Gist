@@ -1,5 +1,6 @@
 #include "LevelScene.h"
 #include "MenuScene.h"
+#include "GameScene.h"
 
 USING_NS_CC;
 
@@ -67,8 +68,8 @@ bool LevelScene::init()
 			if (tempSprite->getBoundingBox().containsPoint(nodeLocation)){
 				if ((tempSprite->getTag() < _successLevel + 1) && (tempSprite->getTag() > 0)){
 					Director::getInstance()->getEventDispatcher()->removeEventListener(listener);
-					//auto transition = TransitionSplitRows::create(2.0f, Game::createSceneWithLevel(tempSprite->getTag()));
-					//Director::getInstance()->replaceScene(transition);
+					auto transition = TransitionSplitRows::create(2.0f, Game::createSceneWithLevel(tempSprite->getTag()));
+					Director::getInstance()->replaceScene(transition);
 					
 				}else if (tempSprite->getTag() > _successLevel && tempSprite->getTag() < 11){
 					MessageBox("not open!", "Note");

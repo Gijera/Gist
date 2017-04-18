@@ -6,9 +6,9 @@
 class LevelUtils : public cocos2d::Ref{
 public:
 	static int readLevelFromFile(){
-		int successLevel = cocos2d::UserDefault::getInstance()->getIntegerForKey("SuccessLevel");
-		if (successLevel)
-			return successLevel;
+		int _successLevel = cocos2d::UserDefault::getInstance()->getIntegerForKey("SuccessLevel");
+		if (_successLevel)
+			return _successLevel;
 
 		return 1;
 	}
@@ -26,7 +26,7 @@ public:
 
 	CREATE_FUNC(LevelScene);
 private:
-	int _successLevel = 1;
+	int _successLevel;
 	int _screenWidth, _screenHeight;
 };
 #endif
