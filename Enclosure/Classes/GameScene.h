@@ -25,7 +25,8 @@ public:
 	
 	int _screenWidth, _screenHeight;
 private:
-	int _health = 3;
+	bool _isMenu;
+	bool _isPause;
 	int _score = 0;
 	int _level = 1;
 	PlayerSprite *_player;
@@ -39,5 +40,6 @@ private:
 	void getNewUnget();
 	void fillAll(float x, float y);
 	void handle();
+	bool collisionDetection(float delta);
 };
 #endif

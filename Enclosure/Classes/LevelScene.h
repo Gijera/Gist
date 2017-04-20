@@ -14,7 +14,7 @@ public:
 	}
 
 	static void writeLevelToFile(int level){
-		cocos2d::UserDefault::getInstance()->setIntegerForKey("SuccessLever", level);
+		cocos2d::UserDefault::getInstance()->setIntegerForKey("SuccessLevel", level);
 	}
 };
 

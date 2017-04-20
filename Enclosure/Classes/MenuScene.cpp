@@ -43,7 +43,7 @@ bool MainMenu::init()
 	auto moveto1 = MoveTo::create(2, Point(visibleSize.width * 0.7, visibleSize.height * 0.55));
 	startButton->runAction(moveto1);
 
-
+	/*
 	auto settingButton = Button::create("button.png");
 	settingButton->setTitleText("Setting");
 	settingButton->setTitleFontName("Î¢ÈíÑÅºÚ");
@@ -57,7 +57,7 @@ bool MainMenu::init()
 	this->addChild(settingButton, 11);
 	auto moveto2 = MoveTo::create(2, Point(visibleSize.width * 0.7, visibleSize.height * 0.4));
 	settingButton->runAction(moveto2);
-
+	*/
 	auto closeButton = Button::create("button.png");
 	closeButton->setTitleText("Close");
 	closeButton->setTitleFontName("Î¢ÈíÑÅºÚ");

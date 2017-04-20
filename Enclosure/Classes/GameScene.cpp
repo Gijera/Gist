@@ -1,8 +1,10 @@
 #include "GameScene.h"
 #include "GlobalFunc.h"
 #include "ui/CocosGUI.h"
+#include "LevelScene.h"
+#include "MenuScene.h"
 #include <sstream>
-
+#include <iostream>
 USING_NS_CC;
 using namespace ui;
 
@@ -25,6 +27,8 @@ bool Game::init()
 
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	
+	_isMenu = false;
+	_isPause = false;
 	_level = currentLevel;
 	_screenWidth = visibleSize.width;
 	_screenHeight = visibleSize.height;
@@ -33,9 +37,13 @@ bool Game::init()
 	for (int i = 0; i != Line; i++){
 		for (int j = 0; j != Column; j++){
 			auto rect = Rect(j * 32, i * 32, 32, 32);
-			auto sprite = Sprite::create(answer, rect);
+			auto spriteFrame = SpriteFrame::create(answer, rect);
+			std::string spriteName = StringUtils::format("answer%d", i * Column + j);
+			SpriteFrameCache::getInstance()->addSpriteFrame(spriteFrame, spriteName);
 
 			if (i == 0 || i == Line - 1 || j == 0 || j == Column - 1){
+				auto spriteFrame = SpriteFrameCache::getInstance()->getSpriteFrameByName(spriteName);
+				auto sprite = Sprite::createWithSpriteFrame(spriteFrame);
 				sprite->setPosition(Vec2(Side / 2 + j * Side, _screenHeight - Side / 2 - i * Side));
 				this->addChild(sprite, 5);
 				_get.push_back(Point(j, i));
@@ -53,28 +61,81 @@ bool Game::init()
 	//level label
 	std::ostringstream buf;
 	buf << "level:" << _level << std::endl;
-	auto levelLabel = LabelTTF::create(buf.str(), "Enclosure", 30);
+	auto levelLabel = LabelTTF::create(buf.str(), "Î¢ÈíÑÅºÚ", 30);
 	levelLabel->setColor(Color3B(0, 0, 0));
 	levelLabel->setAnchorPoint(Vec2(0, 1));
 	levelLabel->setPosition(Vec2(0, 480));
 	this->addChild(levelLabel, 10);
 
-	//health
-	for (int i = 0; i != _health; i++){
-		auto health = Sprite::create("health.png");
-		health->setPosition(Vec2(300 + i * 40, 460));
-		this->addChild(health, 11);
-	}
-
+	auto pauseButton = Button::create("pause.png");
+	pauseButton->setPosition(Vec2(620, 460));
+    pauseButton->addTouchEventListener([=](Ref *pSender, Widget::TouchEventType type){
+		if (type == Widget::TouchEventType::ENDED){
+			if (_isPause){
+				Director::getInstance()->resume();
+				_isPause = false;
+			}else{
+				Director::getInstance()->pause();
+				_isPause = true;
+			}
+		}
+	});
+	pauseButton->setOpacity(0);
+	this->addChild(pauseButton, 13);
+	
+	auto levelButton = Button::create("levelButton.png");
+	levelButton->setPosition(Vec2(620, 460));
+	levelButton->addTouchEventListener([=](Ref *pSender, Widget::TouchEventType type){
+		if (type == Widget::TouchEventType::ENDED){
+			auto transition = TransitionSlideInR::create(2.0, LevelScene::createScene());
+			Director::getInstance()->replaceScene(transition);
+		}
+	});
+	levelButton->setOpacity(0);
+	this->addChild(levelButton, 14);
+	
+	auto menuButton = Button::create("menuButton.png");
+	menuButton->setPosition(Vec2(620, 460));
+	menuButton->addTouchEventListener([=](Ref *pSender, Widget::TouchEventType type){
+		if (type == Widget::TouchEventType::ENDED){
+			auto transition = TransitionSlideInR::create(2.0, MainMenu::createScene());
+			Director::getInstance()->replaceScene(transition);
+		}
+	});
+	menuButton->setOpacity(0);
+	this->addChild(menuButton, 15);
+	
 	//menu
 	auto returnButton = Button::create("menu.png");
 	returnButton->setPosition(Vec2(620, 460));
 	returnButton->addTouchEventListener([=](Ref *pSender, Widget::TouchEventType type){
 		if (type == Widget::TouchEventType::ENDED){
-			;
+			if (_isMenu){
+				auto action1 = MoveTo::create(2.0, Vec2(620, 460));
+				auto fadeOut1 = FadeOut::create(2.0);
+				pauseButton->runAction(Spawn::create(action1, fadeOut1, NULL));
+				auto action2 = MoveTo::create(2.0, Vec2(620, 460));
+				auto fadeOut2 = FadeOut::create(2.0);
+				levelButton->runAction(Spawn::create(action2, fadeOut2, NULL));
+				auto action3 = MoveTo::create(2.0, Vec2(620, 460));
+				auto fadeOut3 = FadeOut::create(2.0);
+				menuButton->runAction(Spawn::create(action3, fadeOut3, NULL));
+				_isMenu = false;
+			}else{
+				auto action1 = MoveTo::create(2.0, Vec2(500, 460));
+				auto fadeIn1 = FadeIn::create(2.0);
+				pauseButton->runAction(Spawn::create(action1, fadeIn1, NULL));
+				auto action2 = MoveTo::create(2.0, Vec2(540, 460));
+				auto fadeIn2 = FadeIn::create(2.0);
+				levelButton->runAction(Spawn::create(action2, fadeIn2, NULL));
+				auto action3 = MoveTo::create(2.0, Vec2(580, 460));
+				auto fadeIn3 = FadeIn::create(2.0);
+				menuButton->runAction(Spawn::create(action3, fadeIn3, NULL));
+				_isMenu = true;
+			}
 		}
 	});
-	this->addChild(returnButton, 12);
+	this->addChild(returnButton, 16);
 
 	//player
 	_player = PlayerSprite::create("player.png");
@@ -92,7 +153,7 @@ bool Game::init()
 		enemy = EnemySprite::create("enemy.png");
 		enemy->setXY(48 + rand() % 500, 48 + rand() % 380);
 		enemy->setVec(1);
-		enemy->setDirector(rand() % 5);
+		enemy->setDirector(rand() % 4 + 1);
 		_enemy.pushBack(enemy);
 		this->addChild(enemy, 6);
 	}
@@ -106,6 +167,90 @@ bool Game::init()
 void Game::update(float delta){
 	for (auto it = _enemy.begin(); it != _enemy.end(); it++)
 		(*it)->move(_get);
+
+	if (_get.size() > 240){
+		this->unscheduleUpdate();
+		_eventDispatcher->removeAllEventListeners();
+		if (currentLevel == 20){
+			auto transition = TransitionSlideInL::create(2.0, LevelScene::createScene());
+			Director::getInstance()->replaceScene(transition);
+		}
+
+		if (currentLevel == LevelUtils::readLevelFromFile()){
+			LevelUtils::writeLevelToFile(currentLevel + 1);
+		}
+		
+		auto nextButton = Button::create("button.png");
+		nextButton->setScale(1.2f);
+		nextButton->setPosition(Vec2(_screenWidth / 2, _screenHeight * 0.6));
+		nextButton->setTitleText("Next Level");
+		nextButton->setTitleFontName("Î¢ÈíÑÅºÚ");
+		nextButton->setTitleFontSize(25);
+		nextButton->addTouchEventListener([](Ref *pSender, Widget::TouchEventType type){
+			if (type == Widget::TouchEventType::ENDED){
+				auto transition = TransitionSlideInL::create(2.0, Game::createSceneWithLevel(currentLevel + 1));
+				Director::getInstance()->replaceScene(transition);
+			}
+		});
+		this->addChild(nextButton, 100);
+
+		auto menuButton = Button::create("button.png");
+		menuButton->setScale(1.2f);
+		menuButton->setPosition(Vec2(_screenWidth / 2, _screenHeight * 0.4));
+		menuButton->setTitleText("Main Menu");
+		menuButton->setTitleFontName("Î¢ÈíÑÅºÚ");
+		menuButton->setTitleFontSize(25);
+		menuButton->addTouchEventListener([](Ref *pSender, Widget::TouchEventType type){
+			if (type == Widget::TouchEventType::ENDED){
+				auto transition = TransitionSlideInL::create(2.0, MainMenu::createScene());
+				Director::getInstance()->replaceScene(transition);
+			}
+		});
+		this->addChild(menuButton, 101);
+	}
+
+	if (collisionDetection(delta)){
+		this->unscheduleUpdate();
+		_eventDispatcher->removeAllEventListeners();
+		auto nextButton = Button::create("button.png");
+		nextButton->setScale(1.2f);
+		nextButton->setPosition(Vec2(_screenWidth / 2, _screenHeight * 0.6));
+		nextButton->setTitleText("Restart");
+		nextButton->setTitleFontName("Î¢ÈíÑÅºÚ");
+		nextButton->setTitleFontSize(25);
+		nextButton->addTouchEventListener([](Ref *pSender, Widget::TouchEventType type){
+			if (type == Widget::TouchEventType::ENDED){
+				auto transition = TransitionSlideInL::create(2.0, Game::createSceneWithLevel(currentLevel));
+				Director::getInstance()->replaceScene(transition);
+			}
+		});
+		this->addChild(nextButton, 100);
+
+		auto menuButton = Button::create("button.png");
+		menuButton->setScale(1.2f);
+		menuButton->setPosition(Vec2(_screenWidth / 2, _screenHeight * 0.4));
+		menuButton->setTitleText("Main Menu");
+		menuButton->setTitleFontName("Î¢ÈíÑÅºÚ");
+		menuButton->setTitleFontSize(25);
+		menuButton->addTouchEventListener([](Ref *pSender, Widget::TouchEventType type){
+			if (type == Widget::TouchEventType::ENDED){
+				auto transition = TransitionSlideInL::create(2.0, MainMenu::createScene());
+				Director::getInstance()->replaceScene(transition);
+			}
+		});
+		this->addChild(menuButton, 101);
+	}
+}
+
+bool Game::collisionDetection(float delta)
+{
+	for (auto it = _trace.begin(); it != _trace.end(); it++){
+		for (auto oit = _enemy.begin(); oit != _enemy.end(); oit++){
+			if ((*it)->getBoundingBox().intersectsRect((*oit)->getBoundingBox()))
+				return true;
+		}
+	}
+	return false;
 }
 
 void Game::onKeyPressed(EventKeyboard::KeyCode keyCode, Event *event)
@@ -142,13 +287,19 @@ void Game::onKeyPressed(EventKeyboard::KeyCode keyCode, Event *event)
 	_player->move();
 
 	if (flag && isInVector(Vec2(_player->getX(), _player->getY()), _get, false)){
-		std::vector<Point> temp;
 		getNewUnget();
 		handle();
 
 		for (auto it = _trace.begin(); it != _trace.end(); it++){
 			this->removeChild(*it);
 		}
+
+		_unget.swap(_newunget);
+		_newunget.clear();
+		//_newunget.erase(_newunget.begin(), _newunget.end());
+		//std::vector<Point> temp;
+		//temp.swap(_newunget);
+
 		_trace.clear();
 		_newget.clear();
 		flag = false;
@@ -160,16 +311,18 @@ void Game::handle()
 	std::string answer = StringUtils::format("level%d.png", _level);
 	for (auto it = _unget.begin(); it != _unget.end(); it++){
 		if (!isInVector((*it), _newunget, false)){
-			auto rect = Rect(it->x * 32, it->y * 32, 32, 32);
-			auto sprite = Sprite::create(answer, rect);
+			int temp = (it->y) * Column + (it->x);
+			std::string spriteName = StringUtils::format("answer%d", temp);
+			auto spriteFrame = SpriteFrameCache::getInstance()->getSpriteFrameByName(spriteName);
+			auto sprite = Sprite::createWithSpriteFrame(spriteFrame);
 			sprite->setPosition(convertToMap(Vec2(it->x, it->y)));
+			auto fadeIn = FadeIn::create(2);
+			sprite->setOpacity(0);
 			this->addChild(sprite, 5);
+			sprite->runAction(fadeIn);
 			_get.push_back(*it);
 		}
 	}
-
-	_unget.swap(_newunget);
-	_newunget.clear();
 }
 
 void Game::getNewUnget()
@@ -187,9 +340,6 @@ void Game::getNewUnget()
 void Game::fillAll(float x, float y)
 {
 	float m, n;
-	if (isInVector(Vec2(x, y), _unget, false) && !isInVector(Vec2(x, y), _newget, false) && !isInVector(Vec2(x, y), _newunget, false)){
-		_newunget.push_back(Vec2(x, y));
-	}
 
 	m = x;
 	n = y - 1;
@@ -215,6 +365,5 @@ void Game::fillAll(float x, float y)
 		_newunget.push_back(Vec2(m, n));
 		fillAll(m, n);
 	}
-	return;
 }
 
