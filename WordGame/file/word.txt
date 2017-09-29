@@ -1,0 +1,12 @@
+as 4
+bad 2
+edit 4
+error 4
+happy 5
+here 56
+park 3
+publish 3
+push 11
+score 4
+she 6
+word 32
