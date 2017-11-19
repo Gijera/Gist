@@ -1,7 +1,7 @@
 # wordApp - SDL2
 
 ##wordApp 游戏界面
-<div><img src="image/example.png" /></div>
+<div><img src="/C++-SDL2/image/example.png" /></div>
 
 
 ## wordApp 游戏文件说明
