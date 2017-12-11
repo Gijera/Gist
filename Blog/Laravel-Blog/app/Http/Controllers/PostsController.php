@@ -45,6 +45,8 @@ class PostsController extends Controller
             new Post(request()->all())
         );
 
+        session()->flash('message', 'Your post has now been published.');
+
     	//跳转到主页
     	return redirect()->home();
     }
